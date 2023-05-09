@@ -10,6 +10,7 @@ import {firebaseConfig} from 'src/environments/environment';
 import 'firebase/compat/firestore';
 import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore/lite';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -41,15 +42,15 @@ export class DatabaseService {
     const q = query(collectionInstance, where('uid','==',uid));
     return from(getDocs(q)).pipe(
       map((val) => {
-        val.forEach(v => {
-          if(v['uid'] == uid){
-            user = new User(v['fullName'],v['email'],v['phone'],v['uid']);
-            user.setAddress(v['address']);
-            user.setCountry(v['coutry']);
-            user.setImage(v['image']);
-            user.setOrders(v['orders']);
-          }
-        });
+        const doc = val.docs[0];
+
+        user = new User(doc.get('fullname'),doc.get('email'),doc.get('phone'),doc.get('uid'));
+            user.setAddress(doc.get('address'));
+            user.setCountry(doc.get('coutry'));
+            user.setImage(doc.get('image'));
+            user.setOrders(doc.get('orders'));
+
+        
         console.log("test observable");
         return user;
       })

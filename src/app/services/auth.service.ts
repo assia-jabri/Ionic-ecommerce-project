@@ -9,7 +9,9 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore/lite';
 import { initializeApp } from 'firebase/app';
 import {firebaseConfig} from 'src/environments/environment';
 import 'firebase/database';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { authState } from '@angular/fire/auth';
+import { switchMap } from 'rxjs/operators';
 
 export interface UserPro{
   username :string;
@@ -34,7 +36,10 @@ export class AuthService {
    }
 
   getCurrentUser(): Observable<firebase.User | null> {
-    return this.fauth.authState;
+    console.log("start getCurrentUser");
+    const auth = getAuth(this.app);
+    return authState(auth) as Observable<firebase.User | null>;
+    //return this.fauth.authState;
   }
 
 
