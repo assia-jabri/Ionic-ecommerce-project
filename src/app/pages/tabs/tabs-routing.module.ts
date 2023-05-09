@@ -8,14 +8,14 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     children:[
-      {path:"home", loadChildren:() => import('src/app/pages/home/home.module').then(res => res.HomePageModule)},
+      {path:"store", loadChildren:() => import('src/app/pages/store/store.module').then(res => res.StorePageModule)},
       {path:"feeds", loadChildren:() => import ('src/app/pages/feeds/feeds.module').then( res => res.FeedsPageModule)},
       {path: "profile", loadChildren:() => import ('src/app/pages/profile/profile.module').then( res => res.ProfilePageModule)}
     ]
   }, 
   {
     path:'',
-    redirectTo: "tabs/home",
+    redirectTo: "tabs/store",
     pathMatch: "full"
   }
 ];

@@ -1,0 +1,113 @@
+
+
+ion-header{
+    --border-style:none;
+    ion-toolbar{
+        --background:white;
+        --border-style: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        
+        ion-icon{
+            width:30px;
+            height:30px;
+            margin-top: 7px;
+            font-weight: bolder;
+        }
+    }
+    
+}
+
+.userImage{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.img{
+    position: relative;
+    height:120px;
+    width:120px;
+    border-radius: 50%;
+    border-color: blue;
+    border-width: 1px;
+    border-style: groove;
+    button{
+        position: absolute;
+        bottom: 0;
+        right:0;
+        width:30px;
+        height:30px;
+        background-color: blue;
+        border-radius: 50%;
+        color: white;
+        ion-icon{
+            width: 20px;
+            height:20px;
+        }
+    }
+}
+.form{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+form{
+    width:85%;
+    input, ion-select{
+        height:40px;
+        border-radius: 20px;
+        background-color: #EAEDF4;
+        border-color: #EAEDF4;
+        border-width: 0.5px;
+        color:gray;
+        
+    }
+    label{
+        color:#B8B8B8;
+        font-weight: lighter;
+        font-size: 15px;
+        margin-left: 5px;
+    }
+    button{
+        border-radius: 20px;
+        background-color: #6B8BB9;
+        border-color: #6B8BB9;
+    }
+   
+ 
+}
+ion-select{
+    width:100%;
+    color:gray;
+}
+.innerDiv{
+    display: flex;
+    flex-direction: row;
+    input{
+        border-radius: 0px;
+
+    }
+}
+#floatingInputdiale{
+    width:27%;
+    color:black;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+#floatingInputphone{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.error_message{
+    font-size: 10px;
+    font-weight:200;
+    color: #913e07;
+  }

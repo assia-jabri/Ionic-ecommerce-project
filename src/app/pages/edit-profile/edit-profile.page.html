@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="close-outline" (click)="onDismiss()"></ion-icon>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="userImage">
+    
+      <div class="img">
+        <img src="../../../assets/images/user.png" alt="">
+        <button><ion-icon name="camera-outline"></ion-icon></button>
+      </div>
+
+  </div>
+  <div class="form">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmittForm()">
+    <div class="mb-3">
+      <label for="fullName">Name</label>
+      <input type="text" name="fullName" class="form-control" id="floatingInputFullName" placeholder="User Name" formControlName="fullName"/>
+     
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.names">
+
+      <div class="error_message" *ngIf="editForm.get('fullName')?.hasError(validation.type) && (editForm.get('fullName')?.dirty || editForm.get('fullName')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+    <div class="mb-3">
+      <label for="email">Email Address</label>
+      <input type="email" name="email" class="form-control" id="floatingInputemail" placeholder="name@example.com" formControlName="email"/>
+     
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.email">
+
+      <div class="error_message" *ngIf="editForm.get('email')?.hasError(validation.type) && (editForm.get('email')?.dirty || editForm.get('email')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+    <div class="mb-3">
+      <label for="country">Country</label>
+      
+        
+          <ion-select aria-label="country" interface="popover" placeholder="Select country" formControlName="country" *ngIf="countryNames" (ionChange)="onSelectChange($event)">
+            <ion-select-option *ngFor="let c of countryNames" [value]="c">{{c}}</ion-select-option>
+            <ion-select-option value="oranges">Oranges</ion-select-option>
+            
+          </ion-select>
+        
+      
+     
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.country">
+
+      <div class="error_message" *ngIf="editForm.get('country')?.hasError(validation.type) && (editForm.get('country')?.dirty || editForm.get('country')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+    <div class="mb-3">
+      <label for="address">Adress</label>
+      <input type="text" name="address" class="form-control" id="floatingInputaddress" placeholder="Adress" formControlName="address"/>
+     
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.address">
+
+      <div class="error_message" *ngIf="editForm.get('address')?.hasError(validation.type) && (editForm.get('address')?.dirty || editForm.get('address')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+    
+    <div class="mb-3">
+      <label for="phone">Phone Number</label>
+      <div class="innerDiv">
+      <input type="text" name="diale" class="form-control" id="floatingInputdiale" placeholder="+212" formControlName="diale"/>
+      <input type="text" name="phone" class="form-control" id="floatingInputphone" placeholder="Phone " formControlName="phone"/>
+      </div>
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.phone">
+
+      <div class="error_message" *ngIf="editForm.get('phone')?.hasError(validation.type) && (editForm.get('phone')?.dirty || editForm.get('phone')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+    <h5>Reset Password</h5>
+    <div class="mb-3">
+      <label for="password">New Password</label>
+      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="New Password" formControlName="newPassword"/>
+    
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.password">
+
+      <div class="error_message" *ngIf="editForm.get('newPassword')?.hasError(validation.type) && (editForm.get('newPassword')?.dirty || editForm.get('newPassword')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+    <div class="mb-3">
+      <label for="confPassword">Confirm Password</label>
+      <input type="password" name="confPassword" class="form-control" id="floatingPasswordconf" placeholder="Confirm Password" formControlName="confirmPassword"/>
+    
+    </div>
+    <ng-container *ngFor="let validation of validationMessages.password">
+
+      <div class="error_message" *ngIf="editForm.get('newPassword')?.hasError(validation.type) && (editForm.get('newPassword')?.dirty || editForm.get('newPassword')?.touched)">
+          {{validation.message}}
+      </div>
+
+     </ng-container>
+
+     <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+  </form>
+</div>
+</ion-content>

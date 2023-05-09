@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="close-outline" (click)="onDismiss()"></ion-icon>
+    <ion-title>Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="form">
+    <div class="methode">
+      <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="visa">
+          <ion-label><img src="../../../assets/icon/visa.png" alt="visa logo"></ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="paypal">
+          <ion-label><ion-icon name="logo-paypal"></ion-icon></ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="jcb">
+          <ion-label><img src="../../../assets/icon/jcb.png" alt=""></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <form [formGroup]="payementForm">
+      <div class="mb-3">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" name="cardNumber" class="form-control" id="floatingInputcardNumber" placeholder="XXXX XXXX XXXX XXXX" formControlName="cardNumber"/>
+       
+      </div>
+      <ng-container *ngFor="let validation of validationMessages.names">
+  
+        <div class="error_message" *ngIf="payementForm.get('cardNumber')?.hasError(validation.type) && (payementForm.get('cardNumber')?.dirty || payementForm.get('cardNumber')?.touched)">
+            {{validation.message}}
+        </div>
+  
+       </ng-container>
+      <div class="mb-3">
+        <label for="expireDate">Expire Date</label>
+        <input type="date" name="expireDate" class="form-control" id="floatingInputexpireDate" placeholder="06/06/2023" formControlName="expireDate"/>
+       
+      </div>
+      <ng-container *ngFor="let validation of validationMessages.expireDate">
+  
+        <div class="error_message" *ngIf="payementForm.get('expireDate')?.hasError(validation.type) && (payementForm.get('expireDate')?.dirty || payementForm.get('expireDate')?.touched)">
+            {{validation.message}}
+        </div>
+  
+       </ng-container>
+      
+      <div class="mb-3">
+        <label for="cvv">Cvv</label>
+        <input type="text" name="cvv" class="form-control" id="floatingInputcvv" placeholder="cvv" formControlName="cvv"/>
+       
+      </div>
+      <ng-container *ngFor="let validation of validationMessages.cvv">
+  
+        <div class="error_message" *ngIf="payementForm.get('cvv')?.hasError(validation.type) && (payementForm.get('cvv')?.dirty || payementForm.get('cvv')?.touched)">
+            {{validation.message}}
+        </div>
+  
+       </ng-container>
+      
+      
+      <div class="mb-3">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" id="floatingname" placeholder="name" formControlName="name"/>
+      
+      </div>
+      <ng-container *ngFor="let validation of validationMessages.names">
+  
+        <div class="error_message" *ngIf="payementForm.get('name')?.hasError(validation.type) && (payementForm.get('name')?.dirty || payementForm.get('name')?.touched)">
+            {{validation.message}}
+        </div>
+  
+       </ng-container>
+       <div class="check">
+        <ion-radio value="custom" aria-label="Custom checkbox"></ion-radio>
+        <p>Save Card Information</p>
+       </div>
+      
+  
+       <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+    </form>
+  </div>
+
+</ion-content>

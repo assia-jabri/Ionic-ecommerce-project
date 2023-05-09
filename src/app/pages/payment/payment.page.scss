@@ -1,0 +1,99 @@
+ion-header{
+    --border-style:none;
+    ion-toolbar{
+        --background:white;
+        --border-style: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        
+        ion-icon{
+            width:30px;
+            height:30px;
+            margin-top: 7px;
+            font-weight: bolder;
+        }
+    }
+    
+}
+.form{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.methode{
+    width:85%;
+    margin-bottom: 20px;
+    ion-segment{
+        width:60%;
+    }
+
+}
+
+form{
+    width:85%;
+    input, ion-select{
+        height:40px;
+        border-radius: 20px;
+        background-color: #EAEDF4;
+        border-color: #EAEDF4;
+        border-width: 0.5px;
+        color:gray;
+        
+    }
+    label{
+        color:#B8B8B8;
+        font-weight: lighter;
+        font-size: 15px;
+        margin-left: 5px;
+    }
+    button{
+        border-radius: 20px;
+        background-color: #6B8BB9;
+        border-color: #6B8BB9;
+    }
+   
+ 
+}
+.error_message{
+    font-size: 10px;
+    font-weight:200;
+    color: #913e07;
+  }
+
+  ion-radio {
+    --border-radius: 4px;
+    --inner-border-radius: 4px;
+  
+    --color: #ddd;
+    --color-checked: #6B8BB9;
+  }
+  
+  ion-radio.ios::part(container) {
+    width: 20px;
+    height: 20px;
+  
+    border: 2px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .radio-checked.ios::part(container) {
+    border-color: #6B8BB9;
+  }
+
+  .check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    ion-radio{
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+    
+  }

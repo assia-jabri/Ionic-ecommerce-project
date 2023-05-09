@@ -33,7 +33,23 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
+  },  {
+    path: 'store',
+    loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageModule)
   },
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
+  },
+
 ];
 
 @NgModule({

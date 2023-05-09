@@ -54,15 +54,9 @@ export class SignupPage implements OnInit {
   }
 
   registerUser(value){
-    this.showalert();
+    
     try{
-      this.authService.userRegistration(value).then(response =>{
-        console.log(response);
-        if(response.user){
-          this.loading.dismiss();
-          this.router.navigateByUrl('loginscreen');
-        }
-      })
+      this.authService.userRegistration(value);
     }catch(error){
       console.log(error);
       

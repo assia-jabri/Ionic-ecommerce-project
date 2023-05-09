@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="chevron-back-outline" (click)="backAction()"></ion-icon>
+    <ion-title>settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="topSettings">
+    <div class="settings">
+      <div class="item">
+        <div class="leftDiv">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <h5>Edit profile</h5>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="moreicon" (click)="presentModal()"></ion-icon>
+      </div>
+      <div class="item">
+        <div class="leftDiv">
+          <ion-icon name="card-outline"></ion-icon>
+          <h5>Payment</h5>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="moreicon" (click)="presentPaymentModal()"></ion-icon>
+      </div>
+      <div class="item">
+        <div class="leftDiv">
+          <ion-icon name="help-buoy-outline"></ion-icon>
+          <h5>Help and Support</h5>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="moreicon"></ion-icon>
+      </div>
+      <div class="item">
+        <div class="leftDiv">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <h5>About</h5>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="moreicon"></ion-icon>
+      </div>
+      <div class="item">
+        <div class="leftDiv">
+          <ion-icon name="trash-outline"></ion-icon>
+          <h5 class="delete" (click)="presentAlert()">Delete account</h5>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+      
+
+</ion-content>

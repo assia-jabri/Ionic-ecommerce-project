@@ -5,5 +5,52 @@
 </ion-header>
 
 <ion-content>
+  
+    <div class="userInfos">
+      <img src="../../../assets/icon/personal-id.png" alt="Shopping icon"/>
+      <h5>Akoulih Omaima</h5>
+      <p>akoulihomaima@gmail.com</p>
+    </div>
+  <div class="infocontainer">
+    <div class="counts">
+      <div class="payements">
+        <h5>DH 200</h5>
+        <p>Total payments</p>
+        
+      </div>
+      <div class="likes">
+        <h5>50</h5>
+        <p>Favorites</p>
+      
+      </div>
+    </div>
+ </div>
+ <div class="featuresdiv">
+  <div class="features">
+    <div class="fav">
+      <div class="div1">
+        <ion-icon name="heart-outline"></ion-icon>
+        <h5>My favorites</h5>
+      </div>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+
+    </div>
+    <div class="settings">
+      <div class="div1">
+        <ion-icon name="settings-outline" class="moreicon"></ion-icon>
+        <h5>Settings</h5>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="moreicon" (click)="openSettings()"></ion-icon>
+    </div>
+    <div class="logout">
+      <div class="div1">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <h5>Logout</h5>
+      </div>
+      
+    </div>
+  </div>
+
+ </div>
 
 </ion-content>
