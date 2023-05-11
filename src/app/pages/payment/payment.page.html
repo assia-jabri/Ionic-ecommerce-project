@@ -21,7 +21,7 @@
       </ion-segment>
     </div>
 
-    <form [formGroup]="payementForm">
+    <form [formGroup]="payementForm" (ngSubmit)="onSubmitForm(payementForm.value)">
       <div class="mb-3">
         <label for="cardNumber">Card Number</label>
         <input type="text" name="cardNumber" class="form-control" id="floatingInputcardNumber" placeholder="XXXX XXXX XXXX XXXX" formControlName="cardNumber"/>
@@ -79,7 +79,7 @@
        </div>
       
   
-       <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+       <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!payementForm.valid">Save</button>
     </form>
   </div>
 

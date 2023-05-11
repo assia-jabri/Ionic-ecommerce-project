@@ -3,7 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { CountryService } from 'src/app/services/country.service';
 import { FormControl, FormBuilder, FormGroup,FormControlName, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
-
+import { AuthService } from 'src/app/services/auth.service';
+import firebase from 'firebase/compat/app';
+import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
@@ -15,6 +17,9 @@ export class EditProfilePage implements OnInit {
   diaCode!:string | null;
   editForm!:FormGroup;
   countryNames!:string[];
+  user!:firebase.User;
+  userModel!:User;
+  
 
   validationMessages = {
     names: [{type:"required", message:"Please Enter your Full Names"}],
@@ -30,12 +35,13 @@ export class EditProfilePage implements OnInit {
     country: [{type: "required",message:"The country is required"}],
     address: [{type:"required", message:"the address is required"}]
  }
-  constructor(private countryService:CountryService, private modalController:ModalController, private formBuilder:FormBuilder, private dbService:DatabaseService) {
+  constructor(private countryService:CountryService, private modalController:ModalController, private formBuilder:FormBuilder, private dbService:DatabaseService, private authService: AuthService) {
     
     this.dbService.getAllCountries().subscribe((data) => {
       this.countryNames = data;
       console.log(this.countryNames[0]);
     })
+
     
     
     this.editForm = this.formBuilder.group({
@@ -45,8 +51,27 @@ export class EditProfilePage implements OnInit {
       address: new FormControl('', [Validators.required]),
       diale: new FormControl('',[Validators.required]),
       phone: new FormControl('', [Validators.required]),
-      newPassword: new FormControl('', [Validators.maxLength(8)]),
-      confirmPassword: new FormControl('', [Validators.maxLength(8)])
+      newPassword: new FormControl('', [Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [Validators.minLength(8)])
+    })
+
+    this.authService.getCurrentUser().subscribe((data) => {
+      if(data){
+        this.user = data;
+
+        this.dbService.getUserById(this.user.uid).subscribe((u) => {
+          this.userModel = u;
+          console.log(this.userModel);
+          this.editForm.get('fullName')?.setValue(this.user.displayName);
+          this.editForm.get('email')?.setValue(this.user.email);
+          this.editForm.get('phone')?.setValue(this.user.phoneNumber);
+          if(this.userModel.getCountry() && this.userModel.getAddress()){
+            this.editForm.get('country')?.setValue(this.userModel.getCountry());
+            this.editForm.get('address')?.setValue(this.userModel.getAddress());
+          }
+        })
+      }
+      
     })
     
    }
@@ -75,6 +100,8 @@ export class EditProfilePage implements OnInit {
 
   onSubmittForm(){
     console.log(this.editForm.value);
+    this.dbService.updateUser(this.user, this.editForm);
+
   }
 
 }

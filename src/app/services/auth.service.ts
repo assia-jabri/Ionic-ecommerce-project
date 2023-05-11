@@ -12,6 +12,8 @@ import 'firebase/database';
 import { Observable, from } from 'rxjs';
 import { authState } from '@angular/fire/auth';
 import { switchMap } from 'rxjs/operators';
+import { Payment } from '../models/payment';
+import { Router } from '@angular/router';
 
 export interface UserPro{
   username :string;
@@ -28,7 +30,7 @@ export class AuthService {
   //authentication user
   userAuth!:firebase.User;
 
-  constructor(private fauth:AngularFireAuth) {
+  constructor(private fauth:AngularFireAuth, private router:Router) {
     this.app = initializeApp(firebaseConfig);
 
     firebase.initializeApp(firebaseConfig);
@@ -68,20 +70,32 @@ export class AuthService {
                                   });
 
             
-            console.log("step 1");
+            
 
             const firestore = getFirestore(this.app);
+
             const myCollection =collection(firestore,'users');
-            const user = new User(value.names, res.user?.email, value.phone, res.user?.uid);
+            const paymentCollection = collection(firestore, 'payment');
+
+            // method instances 
+            const user = new User( res.user?.uid);
+            const payment = new Payment("","","",new Date(),"",this.user?.uid);
+
+            // add a user Document to the users collection
             addDoc(myCollection,user.toJSON()).then(()=> {
               console.log("user created!");
             }).catch((err) => {
               console.log(err);
             });
-            
-            console.log("step 2");
 
-           
+            // add a payment document to the payment collection 
+
+            addDoc(paymentCollection, JSON.parse(JSON.stringify(payment))).then(() => {
+              console.log("payment methode created");
+            }).catch((err) => {
+              console.log(err);
+            })
+
         },
         
         
@@ -90,7 +104,13 @@ export class AuthService {
   }
 
   logout() {
-    this.fauth.signOut();
+    
+    firebase.auth().signOut().then(() => {
+      
+      this.router.navigate(['loginscreen']);
+      
+    })
+    
   }
 
 }

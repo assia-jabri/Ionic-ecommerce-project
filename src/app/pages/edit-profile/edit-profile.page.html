@@ -114,7 +114,7 @@
 
      </ng-container>
 
-     <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+     <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!editForm.valid">Save</button>
   </form>
 </div>
 </ion-content>
