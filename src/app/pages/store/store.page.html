@@ -1,6 +1,62 @@
-
+<ion-header>
+    <ion-toolbar>
+      <ion-searchbar [debounce]="1000" (ionChange)="handleChange($event)"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content>
+    <ion-slides #slider pager="true" [options]="slideOpts" (ionSlideDidChange)='ionSlideDidChange()'>
+        <ion-slide>
+          <img src="../../../assets/images/pexels-melvin-buezo-2529147.jpg" alt="">
+        </ion-slide>
+        <ion-slide>
+          <img src="../../../assets/images/pexels-ray-piedra-1468412.jpg" alt="">
+        </ion-slide>
+        <ion-slide>
+          <img src="../../../assets/images/pexels-shyam-mishra-9546366.jpg" alt="">
+        </ion-slide>
+      </ion-slides>
+
+      <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="all">
+          <ion-label>All</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="nike">
+          <ion-label>Nike</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="sply">
+            <ion-label>SPLY</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="adidas">
+            <ion-label>Adidas</ion-label>
+          </ion-segment-button>
+      </ion-segment>
+      <div class="products">
+        <ion-grid *ngIf="products">
+         <ion-row *ngFor="let i of range(products.length)">
+            <ion-col *ngIf="products[2*i]">
+              <div class="img">
+                <img [src]="products[2*i].image" alt="product image">
+              </div>
+              <div class="actions">
+                <p><span>{{products[2*i].name}}</span> <br/>DH {{products[2*i].price}}</p>
+                <button class="like"><ion-icon name="heart-outline"></ion-icon></button>
+              </div>
+              
+            </ion-col>
+            <ion-col *ngIf="products[2*i+1]">
+              <div class="img">
+                <img [src]="products[2*i+1].image" alt="product image">
+              </div>
+              <div class="actions">
+                <p><span>{{products[2*i+1].name}}</span><br/>DH {{products[2*i+1].price}}</p>
+                <button class="like"><ion-icon name="heart-outline"></ion-icon></button>
+              </div>
+            </ion-col>
+            
+          </ion-row>
+        </ion-grid>
+      </div>
 
   
 </ion-content>

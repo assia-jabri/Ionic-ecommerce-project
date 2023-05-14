@@ -20,12 +20,13 @@ import {provideAuth, getAuth} from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import {getStorage, provideStorage} from '@angular/fire/storage';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-
+import {OrderComponent} from './components/order/order.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), 
     HttpClientModule,
     AppRoutingModule , 
+    IonicModule,
     ReactiveFormsModule, 
     FormsModule ,
     AngularFireAuthModule,

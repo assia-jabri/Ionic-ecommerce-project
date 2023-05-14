@@ -5,7 +5,7 @@ export class User{
     private country!:string;
     private address!:string;
     private image!:string;
-    private orders!:Order[];
+    private orders!:string[]; // this table contains orders id 
     private phone!:string;
     constructor(
        
@@ -34,11 +34,11 @@ export class User{
         this.image = img;
     }
 
-    public addOrder(o:Order){
+    public addOrder(o:string){
         this.orders.push(o);
     }
 
-    public setOrders(orders: Order[]){
+    public setOrders(orders: string[]){
         this.orders = orders;
     }
 
@@ -56,13 +56,13 @@ export class User{
         return this.image;
     }
 
-    public getOrders():Order[]{
+    public getOrders():string[]{
         return this.orders;
     }
 
 
     public deleteOrder(id:string){
-        this.orders = this.orders.filter((order) => order.orderId !== id);
+        this.orders = this.orders.filter((order) => order!== id);
     }
 
     public toJSON() {

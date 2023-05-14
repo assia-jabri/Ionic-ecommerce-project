@@ -5,127 +5,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="products">
-    <div class="product">
-      <div class="container">
-        <img src="../../../assets/images/1.png" alt="product"/>
-        <div class="infos">
-          <div class="first">
-            <div class="name">
-              <p class="pname">Product Name <br/> <span class="ptype">Women</span></p>
-              
-            </div>
-            <div class="delete">
-              <button>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
-            
-          </div>
-          <div class="second">
-            <div class="price">
-              <p> <span>DH</span> 230 </p>
-            </div>
-            <div class="number">
-              <ion-button (click)="decrement()">-</ion-button>
-              <p>{{count }}</p>
-              <ion-button (click)="increment()">+</ion-button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <div class="container">
-        <img src="../../../assets/images/3.png" alt="product"/>
-        <div class="infos">
-          <div class="first">
-            <div class="name">
-              <p class="pname">Product Name <br/> <span class="ptype">Women</span></p>
-              
-            </div>
-            <div class="delete">
-              <button>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
-            
-          </div>
-          <div class="second">
-            <div class="price">
-              <p> <span>DH</span> 230 </p>
-            </div>
-            <div class="number">
-              <ion-button (click)="decrement()">-</ion-button>
-              <p>{{count }}</p>
-              <ion-button (click)="increment()">+</ion-button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <div class="container">
-        <img src="../../../assets/images/5.png" alt="product"/>
-        <div class="infos">
-          <div class="first">
-            <div class="name">
-              <p class="pname">Product Name <br/> <span class="ptype">Women</span></p>
-              
-            </div>
-            <div class="delete">
-              <button>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
-            
-          </div>
-          <div class="second">
-            <div class="price">
-              <p> <span>DH</span> 230 </p>
-            </div>
-            <div class="number">
-              <ion-button (click)="decrement()">-</ion-button>
-              <p>{{count }}</p>
-              <ion-button (click)="increment()">+</ion-button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <div class="container">
-        <img src="../../../assets/images/1.png" alt="product"/>
-        <div class="infos">
-          <div class="first">
-            <div class="name">
-              <p class="pname">Product Name <br/> <span class="ptype">Women</span></p>
-              
-            </div>
-            <div class="delete">
-              <button>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
-            
-          </div>
-          <div class="second">
-            <div class="price">
-              <p> <span>DH</span> 230 </p>
-            </div>
-            <div class="number">
-              <ion-button (click)="decrement()">-</ion-button>
-              <p>{{count }}</p>
-              <ion-button (click)="increment()">+</ion-button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
+  <div class="products" *ngIf="orders">
+    <app-order *ngFor="let o of orders" [order]="o"></app-order>
+    
    
   </div>
   <div class="total">
@@ -133,7 +15,7 @@
       <h5>Invoice</h5>
       <div class="tpanier">
         <p>Total Cart</p>
-        <p>370</p>
+        <p *ngIf="cardTotal">{{cardTotal}}</p>
       </div>
       <div class="shpping">
         <p>Shipping Cost</p>
@@ -141,11 +23,11 @@
       </div>
       <div class="tprice">
         <p>Total</p>
-        <p>DH 380.75</p>
+        <p *ngIf="total">DH {{total}}</p>
       </div>
     </div>
   </div>
   <div class="confirm">
-    <button>Confirm order</button>
+    <button (click)="confirmOrders()">Confirm order</button>
   </div>
 </ion-content>

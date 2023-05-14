@@ -1,0 +1,32 @@
+<div class="topcontainer">
+<div class="product">
+  <div class="container">
+    <img *ngIf="product" [src]="product.image" alt="product"/>
+    <div class="infos">
+      <div class="first">
+        <div class="name">
+          <p class="pname" *ngIf="product">{{product.name}}<br/> <span class="ptype">{{product.type}}</span></p>
+          
+        </div>
+        <div class="delete">
+          <button (click)="deleteOrder()">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        
+      </div>
+      <div class="second">
+        <div class="price">
+          <p> <span>DH</span> {{calculePrice}} </p>
+        </div>
+        <div class="number">
+          <ion-button (click)="decrement()">-</ion-button>
+          <p>{{count }}</p>
+          <ion-button (click)="increment()">+</ion-button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>

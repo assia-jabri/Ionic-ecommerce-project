@@ -1,3 +1,85 @@
 ion-content{
     --background:#EAEDF4;
 }
+
+ion-header{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    ion-toolbar{
+        --background:#EAEDF4;
+        --border-style: none;
+        margin-top: 10px;
+        ion-title{
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
+    
+}
+
+ion-slides{
+    height:400px;
+    ion-slide{
+        height:400px;
+        img{
+            border-radius: 10px;
+        }
+    }
+}
+
+ion-segment{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    --background:#EAEDF4; 
+    
+}
+
+ion-col {
+    position: relative;
+    border: solid 1px #fff;
+    width:95px;
+    height: 300px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .img{
+        height:80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img{
+        border-radius:15px;
+        margin-bottom: 30px;
+        margin-top: 10px;
+    }
+    .actions{
+        width:100%;
+        margin-top: 30px;
+        position: absolute;
+        bottom: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        align-items: center;
+    }
+    .like{
+        font-size: 25px;
+        border-radius: 10px;
+        width:25px;
+        height:25px;
+        text-align: center;
+        background: transparent;
+    }
+    span{
+        font-weight: bold;
+        color: black;
+    }
+    p{
+        color:gray;
+    }
+  }

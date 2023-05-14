@@ -8,12 +8,14 @@ import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
 import {firebaseConfig} from 'src/environments/environment';
 import 'firebase/compat/firestore';
-import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore/lite';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { error } from 'console';
 import { Payment } from '../models/payment';
 import { FormGroup } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { Product } from '../models/product';
+import { Order } from '../models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -211,6 +213,172 @@ export class DatabaseService {
       })
     );
   }
+
+
+  // get Product info using the uid
+  getProductById(id:string):Observable<Product>{
+    let product!:Product;
+
+    const collectionInstance = collection(this.firestore, 'products');
+    const q = query(collectionInstance, where('proId','==',id));
+    return from(getDocs(q)).pipe(
+      map((val) => {
+        const doc = val.docs[0];
+
+        product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
+
+
+        return product;
+      })
+    );
+  }
+
+  getOrderById(uid:string) :Observable<Order[]> {
+    let o!:Order;
+    let orders:Order[] = [];
+    
+    console.log(uid);
+    const collectionInstance = collection(this.firestore, 'orders');
+    if(!collectionInstance){
+      console.log("no collection");
+    }
+    const q = query(collectionInstance, where('uid','==',uid));
+    return from(getDocs(q)).pipe(
+      map((val) => {
+        
+        const length = val.docs.length;
+        console.log(length);
+        let doc;
+        for(let i =0 ; i<length ; i++){
+          doc = val.docs[i];
+          console.log(doc);
+           o = new Order(doc.get('orderId'), doc.get('productId'), doc.get('quantity'), doc.get('uid'));
+          if(!orders.some((s) =>s.orderId == o.orderId && s.productId == o.productId && s.quantity == o.quantity && s.uid== o.uid)){
+            orders.push(o);
+          }
+        }
+        
+            
+        
+        console.log(orders);
+        return orders;
+      })
+    );
+  }
+
+  deleteUserOrder(orderId:string){
+    const documentRef = doc(this.firestore, 'orders', orderId);
+    deleteDoc(documentRef).then(async () => {
+      const toast = await this.toast.create({
+        message: 'Commande deleted!',
+        duration: 1500,
+        position: 'top'
+      });
+      (await toast).present();
+
+      window.location.reload();
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  getAllProducts(): Observable<Product[]>{
+
+    let produncts:Product[] = [];
+    let product!:Product;
+
+    const collectionInstance = collection(this.firestore, 'products');
+    const q = query(collectionInstance);
+
+    return from(getDocs(q)).pipe(
+      map((val) => {
+        const length = val.docs.length;
+        let doc;
+        for(let i =0 ; i<length ; i++){
+          doc = val.docs[i];
+          
+          product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
+          if(!produncts.some((s) =>s.type == product.type && s.name == product.name && s.description == product.description && s.price== product.price)){
+            produncts.push(product);
+          }
+        }
+
+        return produncts;
+      })
+    )
+  }
+  getAllProductsName(): Observable<string[]>{
+
+    let produncts:string[] = [];
+    let product!:string;
+
+    const collectionInstance = collection(this.firestore, 'products');
+    const q = query(collectionInstance);
+
+    return from(getDocs(q)).pipe(
+      map((val) => {
+        const length = val.docs.length;
+        let doc;
+        for(let i =0 ; i<length ; i++){
+          doc = val.docs[i];
+          
+          product = doc.get('name');
+          if(!produncts.some((s) =>s == product)){
+            produncts.push(product);
+          }
+        }
+
+        return produncts;
+      })
+    )
+  }
+
+  getProductsByName(name:string): Observable<Product>{
+
+    let produncts:Product[] = [];
+    let product!:Product;
+
+    const collectionInstance = collection(this.firestore, 'products');
+    const q = query(collectionInstance, where('name', '==', name));
+
+    return from(getDocs(q)).pipe(
+      map((val) => {
+        let doc = val.docs[0];
+          
+          product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
+
+        return product;
+      })
+    )
+  }
+
+  getProductsByType(type:string): Observable<Product[]>{
+
+    let produncts:Product[] = [];
+    let product!:Product;
+
+    const collectionInstance = collection(this.firestore, 'products');
+    const q = query(collectionInstance, where('marque', '==', type));
+
+    return from(getDocs(q)).pipe(
+      map((val) => {
+        const length = val.docs.length;
+        let doc;
+        for(let i =0 ; i<length ; i++){
+          doc = val.docs[i];
+          
+          product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
+          if(!produncts.some((s) =>s.type == product.type && s.name == product.name && s.description == product.description && s.price== product.price)){
+            produncts.push(product);
+          }
+        }
+
+        return produncts;
+      })
+    )
+  }
+
+  
 }
 
 
