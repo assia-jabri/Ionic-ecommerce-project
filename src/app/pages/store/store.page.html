@@ -39,8 +39,15 @@
                 <img [src]="products[2*i].image" alt="product image">
               </div>
               <div class="actions">
-                <p><span>{{products[2*i].name}}</span> <br/>DH {{products[2*i].price}}</p>
-                <button class="like"><ion-icon name="heart-outline"></ion-icon></button>
+                <p (click)="showDetails(products[2*i].getProductId())"><span>{{products[2*i].name}}</span> <br/>DH {{products[2*i].price}}</p>
+                <button class="like" (click)="onLikeProduct(products[2*i].getProductId())">
+                  <ng-container *ngIf="!userModel.getLikes().includes(products[2*i].getProductId())">
+                    <ion-icon name="heart-outline"></ion-icon>
+                  </ng-container>
+                  <ng-container *ngIf="userModel.getLikes().includes(products[2*i].getProductId())">
+                    <ion-icon name="heart"></ion-icon>
+                  </ng-container>
+                </button>
               </div>
               
             </ion-col>
@@ -49,8 +56,15 @@
                 <img [src]="products[2*i+1].image" alt="product image">
               </div>
               <div class="actions">
-                <p><span>{{products[2*i+1].name}}</span><br/>DH {{products[2*i+1].price}}</p>
-                <button class="like"><ion-icon name="heart-outline"></ion-icon></button>
+                <p (click)="showDetails(products[2*i+1].getProductId())"><span>{{products[2*i+1].name}}</span><br/>DH {{products[2*i+1].price}}</p>
+                <button class="like" (click)="onLikeProduct(products[2*i+1].getProductId())">
+                  <ng-container *ngIf="!userModel.getLikes().includes(products[2*i+1].getProductId())">
+                    <ion-icon name="heart-outline"></ion-icon>
+                  </ng-container>
+                  <ng-container *ngIf="userModel.getLikes().includes(products[2*i+1].getProductId())">
+                    <ion-icon name="heart"></ion-icon>
+                  </ng-container>
+                </button>
               </div>
             </ion-col>
             

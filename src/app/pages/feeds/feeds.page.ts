@@ -56,6 +56,25 @@ export class FeedsPage implements OnInit {
   confirmOrders(){
 
   }
+  handleRefresh(event) {
+    setTimeout(() => {
+
+      this.dbSrvice.getOrderById(this.user.uid).subscribe((d) => {
+        this.orders = d;
+
+        for(let i=0 ; i<this.orders.length ; i++){
+          this.dbSrvice.getProductById(this.orders[i].productId).subscribe((p) => {
+            this.cardTotal = this.cardTotal.valueOf() + (p.price * this.orders[i].quantity);
+            if(i == this.orders.length -1){
+              this.total = 10.75 + this.cardTotal.valueOf();
+            }
+          });
+        }
+
+      })
+      event.target.complete();
+    }, 2000);
+  }
 
   
 

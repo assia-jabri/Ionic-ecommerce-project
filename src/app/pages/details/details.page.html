@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="close-outline" (click)="onDismiss()"></ion-icon>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="details">
+    <p *ngIf="product">{{product.name}}<br/><span>Price:</span>DH {{product.price}}</p>
+    <div class="img">
+      <img [src]="product.image" alt="productImg">
+    </div>
+    <div class="size">
+      <h5>Size</h5>
+      
+      <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="36">
+          <ion-label>36</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="37">
+            <ion-label>37</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="38">
+            <ion-label>38</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="39">
+            <ion-label>39</ion-label>
+          </ion-segment-button>
+        <ion-segment-button value="40">
+          <ion-label>40</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <h5>Quantity</h5>
+      <div class="counter__section">
+        <ion-button (click)="decrement()">-</ion-button>
+        <p>{{count }}</p>
+        <ion-button (click)="increment()">+</ion-button>
+      </div>
+    </div>
+    <ion-button class="addtocard" (click)="addTocard(count, productId, uid)"><span><ion-icon name="bag-add-outline"></ion-icon></span>Add To Card</ion-button>
+  </div>
+
+</ion-content>

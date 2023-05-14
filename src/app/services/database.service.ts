@@ -8,7 +8,7 @@ import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
 import {firebaseConfig} from 'src/environments/environment';
 import 'firebase/compat/firestore';
-import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc, setDoc } from 'firebase/firestore/lite';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { error } from 'console';
 import { Payment } from '../models/payment';
@@ -56,9 +56,8 @@ export class DatabaseService {
             user.setCountry(doc.get('coutry'));
             user.setImage(doc.get('image'));
             user.setOrders(doc.get('orders'));
-
+            user.setLikes(doc.get('likes'));
         
-        console.log("test observable");
         return user;
       })
     );
@@ -74,7 +73,6 @@ export class DatabaseService {
         const doc = val.docs[0];
         userId = doc.id;
         
-        console.log(userId);
         return userId;
       })
     );
@@ -149,6 +147,24 @@ export class DatabaseService {
     });
 
     
+  }
+
+  // on like a product
+  productLike(likes:string[], uid:string){
+    let userId!:string;
+
+    this.getUserModelId(uid).subscribe(async (data) => {
+      userId = data;
+      // update the document : 
+      const documentRef = doc(this.firestore, 'users', userId);
+      updateDoc(documentRef, {
+       likes: likes
+      }).then(()=> {
+        console.log("Product liked!");
+      }).catch((err) => {
+        console.log(err);
+      });
+    })
   }
 
   // the function that dd a payementMethode 
@@ -298,7 +314,8 @@ export class DatabaseService {
           doc = val.docs[i];
           
           product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
-          if(!produncts.some((s) =>s.type == product.type && s.name == product.name && s.description == product.description && s.price== product.price)){
+          product.setProductId(doc.get('proId'));
+          if(!produncts.some((s) =>s.type == product.type && s.name == product.name && s.description == product.description && s.price== product.price && s.getProductId()== product.getProductId())){
             produncts.push(product);
           }
         }
@@ -346,6 +363,7 @@ export class DatabaseService {
         let doc = val.docs[0];
           
           product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
+          product.setProductId(doc.get('proId'));
 
         return product;
       })
@@ -368,7 +386,8 @@ export class DatabaseService {
           doc = val.docs[i];
           
           product = new Product(doc.get('type'), doc.get('name'), doc.get('description'), doc.get('price'), doc.get('image'));
-          if(!produncts.some((s) =>s.type == product.type && s.name == product.name && s.description == product.description && s.price== product.price)){
+          product.setProductId(doc.get('proId'));
+          if(!produncts.some((s) =>s.type == product.type && s.name == product.name && s.description == product.description && s.price== product.price && s.getProductId() == product.getProductId())){
             produncts.push(product);
           }
         }
@@ -376,6 +395,28 @@ export class DatabaseService {
         return produncts;
       })
     )
+  }
+
+  addToCard(quantity:number, proId:string, uid:string){
+    let order!:Order;
+
+    const myCollection =collection(this.firestore,'orders');
+    const newDocRef = doc(myCollection);
+    order = new Order(newDocRef.id, proId, quantity, uid);
+
+    setDoc(newDocRef, JSON.parse(JSON.stringify(order))).then(async () => {
+      const toast =  await this.toast.create({
+        message: 'Product added to card !',
+        duration: 1500,
+        position: 'top'
+      });
+  
+      (await toast).present();
+    }).catch((err) => {
+      console.log(err);
+    })
+
+
   }
 
   

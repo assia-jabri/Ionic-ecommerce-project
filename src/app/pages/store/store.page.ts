@@ -5,7 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { IonSlides } from '@ionic/angular';
 import { Product } from 'src/app/models/product';
-
+import { ModalController } from '@ionic/angular';
+import { DetailsPage } from '../details/details.page';
 @Component({
   selector: 'app-store',
   templateUrl: './store.page.html',
@@ -26,7 +27,7 @@ export class StorePage implements OnInit {
     speed: 400
   };
 
-  constructor(private dbSrvice:DatabaseService, private authService:AuthService) { 
+  constructor(private dbSrvice:DatabaseService, private authService:AuthService, private modalController:ModalController) { 
 
     this.authService.getCurrentUser().subscribe((data) => {
       if(data){
@@ -68,6 +69,11 @@ export class StorePage implements OnInit {
         this.products = data;
       })
     }
+    else{
+      this.dbSrvice.getAllProducts().subscribe((data) => {
+        this.products = data;
+      });
+    }
   }
 
   range(end: number) {
@@ -87,6 +93,27 @@ export class StorePage implements OnInit {
     }
     this.products = p;
     console.log(this.products);
+  }
+
+  onLikeProduct(id:string){
+    if(!this.userModel.getLikes().includes(id)){
+    this.userModel.addLike(id);
+    }
+    else{
+      this.userModel.deleteLike(id);
+    }
+    this.dbSrvice.productLike(this.userModel.getLikes(), this.user.uid);
+  }
+
+  async showDetails(prodId:string){
+    const modal = await this.modalController.create({
+      component: DetailsPage,
+      componentProps: {
+        productId: prodId,
+        uid:this.user.uid
+      }
+    });
+    return await modal.present();
   }
 
 }

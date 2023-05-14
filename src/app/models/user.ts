@@ -7,6 +7,7 @@ export class User{
     private image!:string;
     private orders!:string[]; // this table contains orders id 
     private phone!:string;
+    private likes!:string[];  // this table contains products id
     constructor(
        
         public uid:string | null | undefined,
@@ -16,6 +17,7 @@ export class User{
         this.country = "";
         this.address = "";
         this.phone = "";
+        this.likes = [];
     }
 
     public setCountry(country:string){
@@ -60,9 +62,23 @@ export class User{
         return this.orders;
     }
 
+    public getLikes():string[] {
+        return this.likes;
+    }
+    public setLikes(likes:string[]){
+        this.likes = likes;
+    }
+    public addLike(l:string){
+        this.likes.push(l);
+    }
+
 
     public deleteOrder(id:string){
         this.orders = this.orders.filter((order) => order!== id);
+    }
+
+    public deleteLike(id:string){
+        this.likes = this.likes.filter((like) => like!== id);
     }
 
     public toJSON() {
@@ -72,7 +88,8 @@ export class User{
           image: this.image,
           country: this.country,
           address: this.address,
-          orders: this.orders
+          orders: this.orders,
+          likes: this.likes
         };
       }
 

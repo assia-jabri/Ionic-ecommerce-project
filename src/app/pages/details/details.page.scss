@@ -1,0 +1,84 @@
+ion-header{
+    --border-style:none;
+    ion-toolbar{
+        --background:#e8f4f6;
+        --border-style: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        
+        ion-icon{
+            width:30px;
+            height:30px;
+            margin-top: 7px;
+            font-weight: bolder;
+        }
+    }
+    
+}
+
+ion-content{
+    --background: url('../../../assets/images/details.png');
+    background-size: cover;
+    .details{
+        
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        margin-bottom: 20px;
+        .img{
+            height:370px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            
+            width:80%;
+        }
+        p{
+            font-weight: bold;
+            color: black;
+            font-size: large;
+        }
+        span{
+            color:gray;
+            font-weight: lighter;
+            margin-right: 5px;
+        }
+    }
+}
+
+.size{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}
+
+
+.counter__section {
+display: flex;
+align-items: center;
+justify-content: space-between;
+    p{
+        margin-top: 10px;
+    }
+    ion-button{
+        --background:#EAEDF4;
+        color:black;
+    }
+}
+
+.addtocard{
+    width:90%;
+    --background:black;
+    ion-icon{
+        color:white;
+        margin-right: 20px;
+        font-size: 20px;
+    }
+}
