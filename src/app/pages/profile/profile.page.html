@@ -8,8 +8,8 @@
   
     <div class="userInfos">
       <img src="../../../assets/icon/personal-id.png" alt="Shopping icon"/>
-      <h5>Akoulih Omaima</h5>
-      <p>akoulihomaima@gmail.com</p>
+      <h5 *ngIf="user.displayName">{{user.displayName}}</h5>
+      <p *ngIf="user.email">{{user.email}}</p>
     </div>
   <div class="infocontainer">
     <div class="counts">
@@ -19,7 +19,7 @@
         
       </div>
       <div class="likes">
-        <h5>50</h5>
+        <h5>{{userModel.getLikes().length}}</h5>
         <p>Favorites</p>
       
       </div>

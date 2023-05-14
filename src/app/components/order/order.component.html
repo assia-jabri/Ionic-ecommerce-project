@@ -1,5 +1,5 @@
 <div class="topcontainer">
-<div class="product">
+<div class="product" *ngIf="product">
   <div class="container">
     <img *ngIf="product" [src]="product.image" alt="product"/>
     <div class="infos">

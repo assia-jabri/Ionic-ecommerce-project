@@ -79,7 +79,7 @@ export class AuthService {
 
             // method instances 
             const user = new User( res.user?.uid);
-            const payment = new Payment("","","",new Date(),"",this.user?.uid);
+            const payment = new Payment("","","",new Date(),"",res.user?.uid);
 
             // add a user Document to the users collection
             addDoc(myCollection,user.toJSON()).then(()=> {
