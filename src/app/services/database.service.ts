@@ -184,8 +184,14 @@ export class DatabaseService {
             cvv: values.cvv,
             expireDate: values.expireDate
 
-          }).then(()=> {
-            console.log("Payment Model updated");
+          }).then(async ()=> {
+            const toast =  await this.toast.create({
+              message: 'Payment method successfuly added!',
+              duration: 1500,
+              position: 'top'
+            });
+        
+            (await toast).present();
           }).catch((err) => {
             console.log(err);
           });
